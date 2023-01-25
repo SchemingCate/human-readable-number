@@ -1,10 +1,10 @@
-module.exports = function toReadable(number) {
-    let numberString = number.toString();
-    let readable = "";
+module.exports = function toReadable(inputInt) {
+    let inputString = inputInt.toString();
+    let outputReadable = "";
 
-    // names from 0 to 9
-    const oneDigitName = (num) => {
-        switch (num) {
+    // converts string with simple base-ten (from 0 to 9) numerals to word string
+    const oneDigitNumString = (numStr) => {
+        switch (numStr) {
             case "0":
                 return "zero";
             case "1":
@@ -64,41 +64,41 @@ module.exports = function toReadable(number) {
             return twoDigitName(strNum);
         }
         if (num === 14) {
-            return `${oneDigitName(strNum[1])}teen`
+            return `${oneDigitNumString(strNum[1])}teen`
         }
         if (num < 20) {
             return `${twoDigitName(strNum[1])}teen`;
         }
         result = `${twoDigitName(strNum[0])}ty`;
         if (strNum[1] !== "0") {
-            result += ` ${oneDigitName(strNum[1])}`;
+            result += ` ${oneDigitNumString(strNum[1])}`;
         }
         return result;
     };
 
-    // from 0 to 9 readable
-    if (number < 10) {
-        readable = oneDigitName(numberString);
-        return readable;
+    // output for one digit numerals
+    if (inputInt < 10) {
+        outputReadable = oneDigitNumString(inputString);
+        return outputReadable;
     }
 
     // from 10 to 99 readable
-    if (numberString.length === 2) {
-        readable = twoDigitReadable(numberString);
-        return readable;
+    if (inputString.length === 2) {
+        outputReadable = twoDigitReadable(inputString);
+        return outputReadable;
     }
 
     // from 100 to 999 readable
-    if (numberString.length === 3) {
-        readable = `${oneDigitName(numberString[0])} hundred`;
-        if (numberString[1] === "0" && numberString[2] !== "0") {
-            readable += ` ${oneDigitName(numberString[2])}`;
+    if (inputString.length === 3) {
+        outputReadable = `${oneDigitNumString(inputString[0])} hundred`;
+        if (inputString[1] === "0" && inputString[2] !== "0") {
+            outputReadable += ` ${oneDigitNumString(inputString[2])}`;
         }
-        if (numberString[1] !== "0") {
-            let i = numberString[1] + numberString[2];
-            readable += ` ${twoDigitReadable(i)}`;
+        if (inputString[1] !== "0") {
+            let i = inputString[1] + inputString[2];
+            outputReadable += ` ${twoDigitReadable(i)}`;
         }
     }
 
-    return readable;
+    return outputReadable;
 };
